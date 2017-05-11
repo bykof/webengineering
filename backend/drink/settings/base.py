@@ -1,8 +1,11 @@
 import os
+import sys
 import json
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT_DIR = os.path.dirname(BASE_DIR)
+
+sys.path.append(BASE_DIR)
 
 SECRET_KEY = '2=wzna3t@gbla1(ima5uiz15&a#-cxe!gn$l#^2gjaey6z2xjr'
 
@@ -21,10 +24,12 @@ DJANGO_APPS = [
 
 THIRD_PARTY_APPS = [
     'channels',
+    'rest_framework',
+    'coreapi',
 ]
 
 LOCAL_APPS = [
-    'drink.core',
+    'core',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
