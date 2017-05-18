@@ -1,0 +1,18 @@
+.insertName{
+    font-family: 'Baloo', cursive;
+}
+
+.btnGo{
+    font-family: 'Baloo', cursive;
+    font-size: 16px;
+    background-color: #3498db;
+    color: black;
+}
+
+.background{
+    background-color: #f1c40f;
+}
+
+.marginTop{
+    margin-top: 25%;
+}
