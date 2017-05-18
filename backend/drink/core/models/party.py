@@ -2,8 +2,7 @@ import random
 import string
 
 from django.db import models
-
-from drink.abstract_models import APIModel
+from abstract_models import APIModel
 
 
 class Party(APIModel):
@@ -40,11 +39,3 @@ class Party(APIModel):
 
     def __str__(self):
         return 'Party({})'.format(self.pk)
-
-
-class PartyMember(APIModel):
-    party = models.ForeignKey(Party)
-    name = models.TextField()
-
-    def __str__(self):
-        return 'PartyMember({}, {})'.format(self.pk, self.party)
