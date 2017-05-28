@@ -1,10 +1,10 @@
 {
-    "name": "Drink Olympics",
+    "name": "drink_olympics",
     "version": "1.0.0",
     "description": "Drink Olympics",
     "main": "index.js",
     "scripts": {
-        "start": "",
+        "start": "phonegap serve & npm start --prefix app",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "author": "Apache Cordova Team",

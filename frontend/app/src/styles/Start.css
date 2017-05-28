@@ -1,30 +1,7 @@
-.title{
-    font-family: 'Baloo', cursive;
-    font-size: 24px;
+.center {
+    text-align: center;
 }
 
-.btnCreate{
-    font-family: 'Baloo', cursive;
-    font-size: 16px;
-    background-color: #3498db;
-    color: black;
-}
-
-.btnJoin{
-    font-family: 'Baloo', cursive;
-    font-size: 16px;
-    background-color: #e74c3c;
-    color: black;
-}
-
-.centerImage{
-    margin: 0 auto;
-}
-
-.background{
-    background-color: #f1c40f;
-}
-
-.marginTop{
-    margin-top: 10%;
+.logo {
+    margin-top: 80px;
 }

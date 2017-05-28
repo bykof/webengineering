@@ -2,8 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 
-import "bootstrap/dist/css/bootstrap.min.css";
-import './index.css';
+// Import Ratchet for beautiful design
+import "ratchet-npm/dist/css/ratchet.min.css";
+
+import './styles/index.css';
 
 
 document.addEventListener(

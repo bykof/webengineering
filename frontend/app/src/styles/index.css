@@ -1,0 +1,42 @@
+body {
+    font-family: 'Baloo', 'sans-serif';
+}
+
+form {
+    margin: 10px;
+}
+
+.pad-top {
+    padding-top: 20px;
+}
+
+.content {
+    background-color: #f1c40f;
+}
+
+.primary {
+    background-color: #3498db;
+    color: #ecf0f1 !important;
+}
+
+.primary:active {
+    background-color: #2980b9;
+}
+
+.danger {
+    background-color: #e74c3c;
+    color: #ecf0f1 !important;
+}
+
+.danger:active {
+    background-color: #c0392b;
+}
+
+.second-primary {
+    background-color: #1abc9c;
+    color: #ecf0f1 !important;
+}
+
+.second-primary:active {
+    background-color: #16a085;
+}

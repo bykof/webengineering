@@ -29,7 +29,7 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <div>
+        <div className="wrapper">
           <Route component={Start} path={'/'} exact={true}/>
           <Route component={CreateParty} path={'/create-party'}/>
           <Route component={JoinParty} path={'/join-party'}/>
