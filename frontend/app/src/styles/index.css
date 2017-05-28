@@ -1,5 +1,12 @@
+body,
+html {
+    position: fixed;
+}
+
 body {
     font-family: 'Baloo', 'sans-serif';
+    overflow: hidden;
+    height: 100%;
 }
 
 form {

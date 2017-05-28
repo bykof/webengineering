@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
 
+import {Link} from 'react-router-dom';
+
+
 export default class JoinParty extends Component {
   render() {
     return (
@@ -11,8 +14,8 @@ export default class JoinParty extends Component {
           <input type="text" placeholder="123XYZ"/>
         </form>
         <nav className="bar bar-tab">
-          <a href="#" className="tab-item danger" onClick={() => {this.props.history.goBack()}}>Zurück</a>
-          <a href="#" className="tab-item primary">Beitreten</a>
+          <Link to="/" className="tab-item danger">Zurück</Link>
+          <Link to="/" className="tab-item primary">Beitreten</Link>
         </nav>
       </div>
     );

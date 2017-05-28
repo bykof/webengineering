@@ -5,7 +5,8 @@
     "main": "index.js",
     "scripts": {
         "start": "phonegap serve & npm start --prefix app",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build-ios": "npm run build --prefix app && cordova run ios --device"
     },
     "author": "Apache Cordova Team",
     "license": "Apache-2.0",
