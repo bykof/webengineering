@@ -2,12 +2,19 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import logo from '../assets/logo.png';
 import '../styles/Start.css';
+import axios from 'axios';
 
 export default class Start extends Component {
+    constructor(){
+        super();
+    }
+
   render() {
     return (
       <div className="content">
         <h1>Drink Olympics</h1>
+          <button onClick={this.getParty}>GetPartys</button>
+          <button onClick={this.getPlayers}>GetPlayers</button>
         <nav className="bar bar-tab">
           <Link to="/create-party" className="tab-item primary">Spiel erstellen</Link>
           <Link to="/join-party" className="tab-item second-primary">Spiel beitreten</Link>
@@ -15,5 +22,26 @@ export default class Start extends Component {
       </div>
     );
   }
+
+  getParty(){
+      axios.get('http://localhost:8000/api/parties/')
+          .then(function (response) {
+              console.log(response);
+          })
+          .catch(function (error) {
+              console.log(error);
+          });
+  }
+
+    getPlayers(){
+        axios.get('http://localhost:8000/api/party-members/')
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
 }
 
