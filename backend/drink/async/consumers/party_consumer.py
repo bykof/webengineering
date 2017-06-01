@@ -15,7 +15,7 @@ class PartyConsumer(JsonWebsocketConsumer):
         ]
 
     def connect(self, message, **kwargs):
-        # TODO: in message muss die id des partymemebers sein, damit beim disconnect, dieser aus der liste entfernt
+        # TODO: in die session muss die id des partymemebers sein, damit beim disconnect, dieser aus der liste entfernt
         # TODO: entfernt werden kann
 
         self.message.reply_channel.send({"accept": True})
@@ -33,7 +33,7 @@ class PartyConsumer(JsonWebsocketConsumer):
         
         :param party_member: Der gejointe Partymember
         :type party_member: core.models.party_member.PartyMember
-        :return: 
+        :return: e
         :rtype: 
         """
         cls.group_send(
@@ -42,5 +42,4 @@ class PartyConsumer(JsonWebsocketConsumer):
                 'party_member': model_to_dict(party_member),
                 'action': cls.PARTY_MEMBER_JOINED,
             },
-
         )

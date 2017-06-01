@@ -1,6 +1,6 @@
 from rest_framework.serializers import ModelSerializer, ALL_FIELDS
 
-from core.models import Party
+from core.models.party import Party
 
 
 class PartySerializer(ModelSerializer):

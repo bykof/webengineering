@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import *
+from .models.party_member import PartyMember
+from .models.party import Party
 
 
 @admin.register(Party)

@@ -14,5 +14,8 @@ class PartyMember(APIModel):
             PartyConsumer.party_member_joined(self)
         super().save(*args, **kwargs)
 
+    class Meta:
+        app_label = 'core'
+
     def __str__(self):
         return 'PartyMember({}, {})'.format(self.pk, self.party)

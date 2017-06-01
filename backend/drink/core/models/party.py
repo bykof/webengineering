@@ -37,5 +37,8 @@ class Party(APIModel):
         self.entry_code = entry_code
         super().save(force_insert, force_update, using, update_fields)
 
+    class Meta:
+        app_label = 'core'
+
     def __str__(self):
         return 'Party({})'.format(self.pk)
