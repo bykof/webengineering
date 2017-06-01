@@ -6,7 +6,7 @@ import {Link} from 'react-router-dom';
 export default class CreateParty extends Component {
   render() {
     return (
-      <div className="content pad-top">
+      <div className="content">
         <form>
           <label>Wie ist dein Name?</label>
           <input type="text" placeholder="Max Mustermann"/>

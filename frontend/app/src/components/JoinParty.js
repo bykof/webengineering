@@ -2,11 +2,13 @@ import React, {Component} from 'react';
 
 import {Link} from 'react-router-dom';
 
+import '../styles/JoinParty.css';
+
 
 export default class JoinParty extends Component {
   render() {
     return (
-      <div className="content pad-top">
+      <div className="content">
         <form>
           <label>Name</label>
           <input type="text" placeholder="Max Mustermann"/>

@@ -1,6 +1,7 @@
 body,
 html {
     position: fixed;
+    display: flex;
 }
 
 body {
@@ -13,8 +14,8 @@ form {
     margin: 10px;
 }
 
-.pad-top {
-    padding-top: 20px;
+input {
+    height: 45px !important;
 }
 
 .content {
@@ -46,4 +47,22 @@ form {
 
 .second-primary:active {
     background-color: #16a085;
+}
+
+.transition-enter {
+    opacity: 0.01;
+}
+
+.transition-enter.transition-enter-active {
+    opacity: 1;
+    transition: opacity 500ms ease-in;
+}
+
+.transition-leave {
+    opacity: 1;
+}
+
+.transition-leave.transition-leave-active {
+    opacity: 0.01;
+    transition: opacity 300ms ease-in;
 }

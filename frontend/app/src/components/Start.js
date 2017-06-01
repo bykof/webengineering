@@ -7,10 +7,7 @@ export default class Start extends Component {
   render() {
     return (
       <div className="content">
-        <div className="center logo">
-          <h1>Drink Olympics</h1>
-          <img src={logo} className="img-responsive centerImage" alt="Logo"/>
-        </div>
+        <h1>Drink Olympics</h1>
         <nav className="bar bar-tab">
           <Link to="/create-party" className="tab-item primary">Spiel erstellen</Link>
           <Link to="/join-party" className="tab-item second-primary">Spiel beitreten</Link>

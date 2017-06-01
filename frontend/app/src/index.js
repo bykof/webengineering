@@ -7,10 +7,12 @@ import "ratchet-npm/dist/css/ratchet.min.css";
 
 import './styles/index.css';
 
+import FastClick from 'fastclick';
 
 document.addEventListener(
   'deviceready',
   () => {
+    FastClick.attach(document.body);
     ReactDOM.render(
       <App />,
       document.getElementById('root')
