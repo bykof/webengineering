@@ -1,34 +1,35 @@
 {
-    "name": "drink_olympics",
-    "version": "1.0.0",
-    "description": "Drink Olympics",
-    "main": "index.js",
-    "scripts": {
-        "start": "phonegap serve & npm start --prefix app",
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "build-ios": "npm run build --prefix app && cordova run ios --device"
+  "name": "drink_olympics",
+  "version": "1.0.0",
+  "description": "Drink Olympics",
+  "main": "index.js",
+  "scripts": {
+    "start": "phonegap serve & npm start --prefix app",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build-ios": "npm run build --prefix app && cordova run ios --device"
+  },
+  "author": "Apache Cordova Team",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "axios": "^0.16.1",
+    "cordova-android": "^6.2.3",
+    "cordova-browser": "^4.1.0",
+    "cordova-ios": "^4.4.0",
+    "cordova-plugin-browsersync": "^0.1.6",
+    "cordova-plugin-device": "^1.1.6",
+    "cordova-plugin-device-motion": "^1.2.5",
+    "cordova-plugin-whitelist": "^1.3.2"
+  },
+  "cordova": {
+    "plugins": {
+      "cordova-plugin-whitelist": {},
+      "cordova-plugin-device": {},
+      "cordova-plugin-device-motion": {}
     },
-    "author": "Apache Cordova Team",
-    "license": "Apache-2.0",
-    "dependencies": {
-        "cordova-android": "^6.2.3",
-        "cordova-browser": "^4.1.0",
-        "cordova-ios": "^4.4.0",
-        "cordova-plugin-browsersync": "^0.1.6",
-        "cordova-plugin-device": "^1.1.6",
-        "cordova-plugin-device-motion": "^1.2.5",
-        "cordova-plugin-whitelist": "^1.3.2"
-    },
-    "cordova": {
-        "plugins": {
-            "cordova-plugin-whitelist": {},
-            "cordova-plugin-device": {},
-            "cordova-plugin-device-motion": {}
-        },
-        "platforms": [
-            "android",
-            "browser",
-            "ios"
-        ]
-    }
+    "platforms": [
+      "android",
+      "browser",
+      "ios"
+    ]
+  }
 }
