@@ -30,7 +30,7 @@ export default class Start extends Component {
       axios.get('http://localhost:8000/api/parties/')
           .then(function (response) {
               console.log(response);
-              this.setState({partys: response});
+              //this.setState({partys: response});
           })
           .catch(function (error) {
               console.log(error);
@@ -41,7 +41,7 @@ export default class Start extends Component {
         axios.get('http://localhost:8000/api/party-members/')
             .then(function (response) {
                 console.log(response);
-                this.setState({players: response});
+                //this.setState({players: response});
             })
             .catch(function (error) {
                 console.log(error);
