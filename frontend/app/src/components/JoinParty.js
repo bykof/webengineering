@@ -22,12 +22,35 @@ export default class JoinParty extends Component {
     };
     
     this.updateInputState = this.updateInputState.bind(this);
-    
+    this.showError = this.showError.bind(this);
+    this.createMember = this.createMember.bind(this);
   }
   
   updateInputState(event) {
     this.state[event.target.name] = event.target.value;
     this.setState(this.state);
+  }
+  
+  showError(error) {
+    console.log(error);
+    console.log(error.response);
+    this.setState({is_loading: false});
+    this.setState({is_error: true});
+  }
+  
+  createMember() {
+    axios.post(
+      'http://localhost:8000/api/party-members/',
+      {
+        name: this.state.name,
+        party: this.props.application_store.current_party.id
+      }
+    ).then(
+      (response) => {
+        this.props.application_store.current_member = response.data;
+        this.props.history.push('/lobby');
+      }
+    ).catch(this.showError);
   }
   
   joinParty(event) {
@@ -42,19 +65,14 @@ export default class JoinParty extends Component {
     ).then(
       (response) => {
         if (response.data.length === 1) {
-          let party = response.data[0];
-          console.log(party);
+          this.props.application_store.current_party = response.data[0];
+          this.createMember();
         } else {
           this.setState({overlay_message: 'Die Gruppe wurde leider nicht gefunden :('});
           this.setState({is_loading: false});
         }
       }
-    ).catch(
-      (error) => {
-        console.log(error);
-        this.setState({is_loading: false});
-      }
-    );
+    ).catch(this.showError);
   }
   
   render() {
