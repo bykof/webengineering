@@ -4,6 +4,9 @@ Django==1.11
 # Django Channels for Websockets
 channels==1.1.3
 
+# Django Filter
+django-filter==1.0.4
+
 # ASGI Redis
 asgi_redis==1.4.0
 
