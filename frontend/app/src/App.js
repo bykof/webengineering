@@ -24,6 +24,14 @@ class App extends Component {
     return <CreateParty {...props} application_store={this.props.application_store} />;
   }
 
+  renderJoinParty(props){
+    return <JoinParty {...props} application_store={this.props.application_store} />;
+  }
+
+  renderLobby(props){
+    return <Lobby {...props} application_store={this.props.application_store} />;
+  }
+
   render() {
     
     return (
@@ -31,8 +39,8 @@ class App extends Component {
         <div className="wrapper">
           <Route render={this.renderStart.bind(this)} path={'/'} exact={true}/>
           <Route render={this.renderCreateParty.bind(this)}  path={'/create-party'}/>
-          <Route component={JoinParty} path={'/join-party'}/>
-          <Route component={Lobby} path={'/lobby'}/>
+          <Route render={this.renderJoinParty.bind(this)} path={'/join-party'}/>
+          <Route render={this.renderLobby.bind(this)} path={'/lobby'}/>
         </div>
       </Router>
     );
