@@ -5,6 +5,10 @@ import axios from 'axios';
 
 
 export default class CreateParty extends Component {
+    constructor() {
+        super();
+    }
+
     render() {
         return (
             <div className="content">
@@ -14,7 +18,7 @@ export default class CreateParty extends Component {
                 </form>
                 <nav className="bar bar-tab">
                     <Link to="/" className="tab-item danger">Zurück</Link>
-                    <Link to="/" className="tab-item primary" onClick={this.postPartyAndMemeber}>Erstellen</Link>
+                    <Link to="/lobby" className="tab-item primary" onClick={this.postPartyAndMemeber}>Erstellen</Link>
                 </nav>
             </div>
         );
@@ -28,7 +32,6 @@ export default class CreateParty extends Component {
         ).then(
             function (party) {
                 console.log(party);
-
                 //Erstelle Spieler
                 axios.post(
                     'http://localhost:8000/api/party-members/', {

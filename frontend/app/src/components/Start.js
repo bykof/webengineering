@@ -5,8 +5,10 @@ import '../styles/Start.css';
 import axios from 'axios';
 
 export default class Start extends Component {
+
     constructor(){
         super();
+        this.state = {};
     }
 
   render() {
@@ -15,6 +17,7 @@ export default class Start extends Component {
         <h1>Drink Olympics</h1>
           <button onClick={this.getParty}>GetPartys</button>
           <button onClick={this.getPlayers}>GetPlayers</button>
+          <button onClick={this.delete}>Delete</button>
         <nav className="bar bar-tab">
           <Link to="/create-party" className="tab-item primary">Spiel erstellen</Link>
           <Link to="/join-party" className="tab-item second-primary">Spiel beitreten</Link>
@@ -27,6 +30,7 @@ export default class Start extends Component {
       axios.get('http://localhost:8000/api/parties/')
           .then(function (response) {
               console.log(response);
+              this.setState({partys: response});
           })
           .catch(function (error) {
               console.log(error);
@@ -35,6 +39,17 @@ export default class Start extends Component {
 
     getPlayers(){
         axios.get('http://localhost:8000/api/party-members/')
+            .then(function (response) {
+                console.log(response);
+                this.setState({players: response});
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
+    delete(){
+        axios.delete('http://localhost:8000/api/party-members/')
             .then(function (response) {
                 console.log(response);
             })

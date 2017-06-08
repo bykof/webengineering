@@ -7,6 +7,7 @@ import {
 import Start from './components/Start';
 import CreateParty from './components/CreateParty';
 import JoinParty from './components/JoinParty';
+import Lobby from './components/Lobby';
 
 
 class App extends Component {
@@ -16,9 +17,9 @@ class App extends Component {
     // Notwendig, weil in der Funktion selber "this" genutzt wird
     // Methode bindet das Objekt an sich
     // Kann auch in Html geschrieben werden
-    this.changeName = this.changeName.bind(this);
+    //this.changeName = this.changeName.bind(this);
   }
-  
+/*
   changeName() {
     this.setState({name: "leon"});
   }
@@ -26,7 +27,8 @@ class App extends Component {
   showValue(value) {
     console.log(value);
   }
-  
+  */
+
   render() {
     return (
       <Router>
@@ -34,6 +36,7 @@ class App extends Component {
           <Route component={Start} path={'/'} exact={true}/>
           <Route component={CreateParty} path={'/create-party'}/>
           <Route component={JoinParty} path={'/join-party'}/>
+          <Route component={Lobby} path={'/lobby'}/>
         </div>
       </Router>
     );
