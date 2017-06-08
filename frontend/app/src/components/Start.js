@@ -11,6 +11,12 @@ export default class Start extends Component {
         this.state = {};
     }
 
+  
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+  
   render() {
     return (
       <div className="content">
@@ -58,5 +64,38 @@ export default class Start extends Component {
             });
     }
 
+  
+  getParty() {
+    axios.get('http://localhost:8000/api/parties/')
+      .then(function (response) {
+        console.log(response);
+        this.setState({partys: response});
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+  
+  getPlayers() {
+    axios.get('http://localhost:8000/api/party-members/')
+      .then(function (response) {
+        console.log(response);
+        this.setState({players: response});
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+  
+  delete() {
+    axios.delete('http://localhost:8000/api/party-members/')
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+  
 }
 

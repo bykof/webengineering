@@ -11,30 +11,26 @@ import Lobby from './components/Lobby';
 
 
 class App extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {};
-    // Notwendig, weil in der Funktion selber "this" genutzt wird
-    // Methode bindet das Objekt an sich
-    // Kann auch in Html geschrieben werden
-    //this.changeName = this.changeName.bind(this);
-  }
-/*
-  changeName() {
-    this.setState({name: "leon"});
   }
   
-  showValue(value) {
-    console.log(value);
+  renderStart(props) {
+    return <Start {...props} application_store={this.props.application_store} />;
   }
-  */
+  
+  renderCreateParty(props) {
+    return <CreateParty {...props} application_store={this.props.application_store} />;
+  }
 
   render() {
+    
     return (
       <Router>
         <div className="wrapper">
-          <Route component={Start} path={'/'} exact={true}/>
-          <Route component={CreateParty} path={'/create-party'}/>
+          <Route render={this.renderStart.bind(this)} path={'/'} exact={true}/>
+          <Route render={this.renderCreateParty.bind(this)}  path={'/create-party'}/>
           <Route component={JoinParty} path={'/join-party'}/>
           <Route component={Lobby} path={'/lobby'}/>
         </div>
