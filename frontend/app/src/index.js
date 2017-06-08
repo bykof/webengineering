@@ -8,13 +8,14 @@ import "ratchet-npm/dist/css/ratchet.min.css";
 import './styles/index.css';
 
 import FastClick from 'fastclick';
+import ApplicationStore from "./stores/ApplicationStore";
 
 document.addEventListener(
   'deviceready',
   () => {
     FastClick.attach(document.body);
     ReactDOM.render(
-      <App />,
+      <App application_store={new ApplicationStore()} />,
       document.getElementById('root')
     );
   },
