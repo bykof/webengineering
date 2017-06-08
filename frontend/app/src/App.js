@@ -23,6 +23,14 @@ class App extends Component {
   renderCreateParty(props) {
     return <CreateParty {...props} application_store={this.props.application_store} />;
   }
+  
+  renderJoinParty(props) {
+    return <JoinParty {...props} application_store={this.props.application_store}/>;
+  }
+  
+  renderLobby(props) {
+    return <Lobby {...props} application_store={this.props.application_store}/>;
+  }
 
   renderJoinParty(props){
     return <JoinParty {...props} application_store={this.props.application_store} />;

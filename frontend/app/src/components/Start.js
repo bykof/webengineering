@@ -6,7 +6,6 @@ import axios from 'axios';
 
 export default class Start extends Component {
 
-
   constructor(props) {
     super(props);
     this.state = {};
@@ -26,6 +25,7 @@ export default class Start extends Component {
       </div>
     );
   }
+
 
   getParty() {
     axios.get('http://localhost:8000/api/parties/')
@@ -57,6 +57,5 @@ export default class Start extends Component {
         console.log(error);
       });
   }
-
 }
 

@@ -5,6 +5,4 @@ export default class ApplicationStore {
     this.current_party = null;
     this.current_member = null;
   }
-  
-  
 }
