@@ -15,9 +15,6 @@ export default class Start extends Component {
     return (
       <div className="content">
         <h1>Drink Olympics</h1>
-        <button onClick={this.getParty}>GetPartys</button>
-        <button onClick={this.getPlayers}>GetPlayers</button>
-        <button onClick={this.delete}>Delete</button>
         <nav className="bar bar-tab">
           <Link to="/create-party" className="tab-item primary">Spiel erstellen</Link>
           <Link to="/join-party" className="tab-item second-primary">Spiel beitreten</Link>
