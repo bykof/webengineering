@@ -7,9 +7,14 @@ import Error from "./Error";
 
 export default class CreateParty extends Component {
 
-  constructor() {
-    super();
-    this.state = {name: '', tipped: false, is_error: false};
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: '',
+      tipped: false,
+      is_error: false
+    };
+
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.postPartyAndMember = this.postPartyAndMember.bind(this);
@@ -20,14 +25,14 @@ export default class CreateParty extends Component {
     const error = (
       <Error>
         <div>
-          <p>Es ist ein Fehler aufgetreten!</p>
+          <p>Bitte gib einen Namen ein!</p>
         </div>
         <div>
           <button
             className="primary"
             onClick={
               () => {
-                this.setState({is_error: false});
+                this.setState({tipped: false});
               }
             }
           >
@@ -79,6 +84,7 @@ export default class CreateParty extends Component {
       ).then(
         (party) => {
           console.log(party);
+          this.props.application_store.current_party = party.data;
           //Erstelle Spieler
           axios.post(
             'http://localhost:8000/api/party-members/', {
@@ -88,6 +94,7 @@ export default class CreateParty extends Component {
           ).then(
             (party_member) => {
               console.log(party_member);
+              this.props.application_store.current_member = party_member.data;
               this.props.history.push('/lobby');
             }
           ).catch(
