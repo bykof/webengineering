@@ -14,6 +14,10 @@ class PartyMember(APIModel):
             PartyConsumer.party_member_joined(self)
         super().save(*args, **kwargs)
 
+    def delete(self, *args, **kwargs):
+        PartyConsumer.party_member_leaved(self)
+        super().delete(*args, **kwargs)
+
     class Meta:
         app_label = 'core'
 

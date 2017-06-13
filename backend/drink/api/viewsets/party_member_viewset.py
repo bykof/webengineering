@@ -7,5 +7,3 @@ from core.models.party_member import PartyMember
 class PartyMemberViewSet(ModelViewSet):
     queryset = PartyMember.objects.all()
     serializer_class = PartyMemberSerializer
-
-    # TODO: Filter by Party

@@ -6,7 +6,7 @@ import Error from "./Error";
 
 
 export default class CreateParty extends Component {
-
+  
   constructor(props) {
     super(props);
     this.state = {
@@ -14,14 +14,14 @@ export default class CreateParty extends Component {
       tipped: false,
       is_error: false
     };
-
+    
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.postPartyAndMember = this.postPartyAndMember.bind(this);
   }
-
+  
   render() {
-
+    
     const error = (
       <Error>
         <div>
@@ -41,7 +41,7 @@ export default class CreateParty extends Component {
         </div>
       </Error>
     );
-
+    
     return (
       <div className="content">
         {
@@ -52,7 +52,7 @@ export default class CreateParty extends Component {
         <form>
           <label>Wie ist dein Name?</label>
           <input type="text" placeholder="Max Mustermann" value={this.state.name} onChange={this.handleChange}/>
-
+        
         </form>
         <nav className="bar bar-tab">
           <Link to="/" className="tab-item danger">Zurück</Link>
@@ -61,29 +61,27 @@ export default class CreateParty extends Component {
       </div>
     );
   }
-
+  
   handleChange(event) {
     this.setState({name: event.target.value});
   }
-
+  
   handleSubmit(event) {
     alert('A name was submitted: ' + this.state.value);
     event.preventDefault();
   }
-
+  
   postPartyAndMember(event) {
     this.setState({tipped: true});
     this.setState({is_error: true});
     if (this.state.name !== '') {
       event.preventDefault();
-      console.log(event);
       //Erstelle Party
       axios.post(
         'http://localhost:8000/api/parties/',
         {}
       ).then(
         (party) => {
-          console.log(party);
           this.props.application_store.current_party = party.data;
           //Erstelle Spieler
           axios.post(

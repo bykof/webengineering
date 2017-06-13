@@ -9,7 +9,8 @@
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-router": "^4.1.1",
-    "react-router-dom": "^4.1.1"
+    "react-router-dom": "^4.1.1",
+    "sockjs-client": "^1.1.4"
   },
   "devDependencies": {
     "autoprefixer": "7.1.0",
