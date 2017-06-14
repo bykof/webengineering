@@ -11,8 +11,10 @@ class PartyMember(APIModel):
 
     def save(self, *args, **kwargs):
         if not self.pk:
+            super().save(*args, **kwargs)
             PartyConsumer.party_member_joined(self)
-        super().save(*args, **kwargs)
+        else:
+            super().save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
         PartyConsumer.party_member_leaved(self)
