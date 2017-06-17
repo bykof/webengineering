@@ -14,6 +14,7 @@ const WAITING = 'waiting';
 const PREPARE = 'prepare';
 const BOOM = 'boom';
 const PLAYING = 'playing';
+const DRINK = 'drink';
 
 import games from './games';
 
@@ -25,7 +26,7 @@ export default class Game extends React.Component {
     this.state = {
       status: WAITING,
       soundPosition: 0,
-      current_game: games.fast_tipping
+      current_game: null,
     };
     
     this.renderAnimation = this.renderAnimation.bind(this);
@@ -43,8 +44,25 @@ export default class Game extends React.Component {
     this.props.history.push('/');
   }
   
-  onGameStarts() {
-    this.setState({status: PREPARE});
+  onGameStarts(data) {
+    console.log(data);
+    data.teams.forEach(
+      (team) => {
+        team.forEach(
+          (party_member) => {
+            if (party_member.id === this.props.application_store.current_member.id) {
+              this.props.application_store.current_teams = data.teams;
+              this.setState(
+                {
+                  status: PREPARE,
+                  current_game: games[data.game_index],
+                }
+              );
+            }
+          }
+        )
+      }
+    );
   }
   
   renderSound() {
@@ -91,12 +109,28 @@ export default class Game extends React.Component {
       case PLAYING:
         return React.createElement(
           this.state.current_game,
-          {application_store: this.props.application_store}
+          {
+            application_store: this.props.application_store,
+            teams: this.state.teams,
+            onGameFinished: this.onGameFinished.bind(this)
+          }
         );
+      case DRINK:
+        setTimeout(
+          () => {
+            this.setState({status: WAITING});
+          },
+          2000
+        );
+        return <div className="drink">DRINK!!!</div>;
       default:
-        return <img src={bomb} />
+        return <img src={bomb}/>
     }
-    
+  }
+  
+  onGameFinished(win_or_loose) {
+    console.log(win_or_loose);
+    this.setState({status: DRINK});
   }
   
   render() {

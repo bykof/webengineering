@@ -13,7 +13,6 @@ import ApplicationStore from "./stores/ApplicationStore";
 document.addEventListener(
   'deviceready',
   () => {
-    FastClick.attach(document.body);
     ReactDOM.render(
       <App application_store={new ApplicationStore()} />,
       document.getElementById('root')

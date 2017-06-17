@@ -7,6 +7,12 @@
     }
 }
 
+@keyframes blinker {
+    50% {
+        opacity: 0;
+    }
+}
+
 .flash {
     position: absolute;
     width: 100%;
@@ -17,5 +23,11 @@
     animation-name: flash-anim;
     animation-duration: 0.4s;
     animation-iteration-count: 4;
+}
+
+.drink {
+    animation: blinker 0.3s linear infinite;
+    font-size: 5em;
+    color: black;
 }
 

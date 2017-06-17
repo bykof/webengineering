@@ -5,6 +5,7 @@ export default class ApplicationStore {
     this.current_party = null;
     this.current_member = null;
     this.party_socket = null;
+    this.current_teams = null;
   }
   
   create_party_socket() {

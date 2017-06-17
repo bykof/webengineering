@@ -10,6 +10,10 @@ body {
     height: 100%;
 }
 
+* {
+    touch-action: manipulation
+}
+
 form {
     margin: 10px;
 }
@@ -22,6 +26,10 @@ button {
     border: none;
     width: 8em;
     height: 45px;
+}
+
+p {
+    color: black;
 }
 
 .content {

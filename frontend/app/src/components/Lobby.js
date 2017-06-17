@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import games from './games';
+import Error from "./Error";
 
 
 const PARTY_PARTY_MEMBERS = (party_id) => {
@@ -15,7 +16,8 @@ export default class Lobby extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      members: []
+      members: [],
+      errorMessage: null
     };
     
     this.party_socket = null;
@@ -77,7 +79,8 @@ export default class Lobby extends Component {
   
   startGame() {
     let keys = [];
-    for(let key in games) keys.push(key);
+    
+    for (let key in games) keys.push(key);
     axios.post(
       'http://127.0.0.1:8000/api/parties/' + this.props.application_store.current_party.id + '/start/',
       {
@@ -95,13 +98,35 @@ export default class Lobby extends Component {
     const renderedMembers = this.state.members.map(
       (member) => {
         return (
-          <p key={member.id}>
+          <h4 key={member.id}>
             - {member.name}
-          </p>
+          </h4>
         );
       }
     );
-  
+    
+    const renderedErrorMessage = (
+      this.state.errorMessage ? (
+        <Error>
+          <div>
+            <p>{this.state.errorMessage}</p>
+          </div>
+          <div>
+            <button
+              className="primary"
+              onClick={
+                () => {
+                  this.setState({errorMessage: null})
+                }
+              }
+            >
+              Alles klar, ich warte!
+            </button>
+          </div>
+        </Error>
+      ) : null
+    );
+    
     if (!this.props.application_store.current_party) return this.props.history.push('create-party');
     
     return (
@@ -109,6 +134,7 @@ export default class Lobby extends Component {
         <h1>Lobby</h1>
         <h4>Code: {this.props.application_store.current_party.entry_code}</h4>
         <h4>Liste der Spieler:</h4>
+        {renderedErrorMessage}
         {renderedMembers}
         <nav className="bar bar-tab">
           <Link to='/' className="tab-item danger">Abbrechen</Link>

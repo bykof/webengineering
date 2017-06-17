@@ -125,14 +125,19 @@ class PartyConsumer(JsonWebsocketConsumer):
         )
 
     @classmethod
-    def game_starts(cls, party, party_members):
+    def game_starts(cls, party, party_members, teams, game_index):
         cls.group_send(
             cls.LOBBY_GROUP.format(party.id),
             {
                 'action': cls.GAME_STARTS,
+                'game_index': game_index,
                 'party_members': [
                     model_to_dict(party_member)
                     for party_member in party_members
-                ]
+                ],
+                'teams': [
+                    list(map(lambda party_member: model_to_dict(party_member), team))
+                    for team in teams
+                ],
             }
         )

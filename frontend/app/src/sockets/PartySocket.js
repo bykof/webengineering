@@ -26,7 +26,7 @@ export default class PartySocket {
   }
   
   clearCallbacks() {
-    this.defaultMessage = [];
+    this.onDefaultMessage = [];
     this.onPartyMemberJoined = [];
     this.onPartyMemberLeaved = [];
     this.onPartyStarted = [];
@@ -61,7 +61,7 @@ export default class PartySocket {
         this.runCallback(this.onGameStarts, data);
         break;
       default:
-        this.runCallback(this.defaultMessage, data);
+        this.runCallback(this.onDefaultMessage, data);
     }
   }
   
