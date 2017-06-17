@@ -91,7 +91,6 @@ export default class CreateParty extends Component {
             }
           ).then(
             (party_member) => {
-              console.log(party_member);
               this.props.application_store.current_member = party_member.data;
               this.props.history.push('/lobby');
             }

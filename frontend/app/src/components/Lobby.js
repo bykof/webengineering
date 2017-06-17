@@ -2,10 +2,7 @@ import '../styles/Lobby.css'
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
-
-const PARTY_MEMBER_JOINED = 'party_member_joined';
-const PARTY_MEMBER_LEAVED = 'party_member_leaved';
-
+import PartySocket from "../sockets/PartySocket";
 
 const PARTY_PARTY_MEMBERS = (party_id) => {
   return 'http://127.0.0.1:8000/api/parties/' + party_id + '/party_members/';
@@ -20,48 +17,17 @@ export default class Lobby extends Component {
       members: []
     };
     
-    this.socket = null;
-  }
-  
-  initSocket() {
-    this.socket = new WebSocket(
-      'ws://127.0.0.1:8000/party/' +
-      this.props.application_store.current_party.id +
-      '/?party_member=' +
-      JSON.stringify(this.props.application_store.current_member)
-    );
-  
-    this.socket.onmessage = (event) => {
-      let data = JSON.parse(event.data);
-      switch (data.action) {
-        case PARTY_MEMBER_JOINED:
-          this.onPartyMemberJoined(data);
-          break;
-        case PARTY_MEMBER_LEAVED:
-          this.onPartyMemberLeaved(data);
-          break;
-        default:
-          console.log(data);
-      }
-    };
-  
-    if (this.socket.readyState === WebSocket.OPEN) this.socket.onopen();
-  }
-  
-  onPartyMemberJoined(data) {
-    console.log('party member joined: ', data);
-    this.state.members.push(data.party_member);
-    this.setState({members: this.state.members});
-  }
-  
-  onPartyMemberLeaved(data) {
-    console.log('party member leaved: ', data);
-    this.state.members = this.state.members.filter((member) => member.id !== data.party_member.id);
-    this.setState({members: this.state.members});
+    this.party_socket = null;
   }
   
   componentWillUnmount() {
-    this.socket.close();
+    this.party_socket.close();
+  }
+  
+  initPartyWebsocket() {
+    this.party_socket = new PartySocket(this.props.application_store);
+    this.party_socket.onPartyMemberLeaved.push(this.onPartyMemberLeaved.bind(this));
+    this.party_socket.onPartyMemberJoined.push(this.onPartyMemberJoined.bind(this));
   }
   
   retrieveMembers() {
@@ -86,8 +52,20 @@ export default class Lobby extends Component {
   }
   
   componentDidMount() {
-    this.initSocket();
+    this.initPartyWebsocket();
     this.retrieveMembers();
+  }
+  
+  onPartyMemberJoined(data) {
+    console.log('party member joined: ', data);
+    this.state.members.push(data.party_member);
+    this.setState({members: this.state.members});
+  }
+  
+  onPartyMemberLeaved(data) {
+    console.log('party member leaved: ', data);
+    this.state.members = this.state.members.filter((member) => member.id !== data.party_member.id);
+    this.setState({members: this.state.members});
   }
   
   render() {

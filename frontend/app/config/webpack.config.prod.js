@@ -109,6 +109,11 @@ module.exports = {
       // First, run the linter.
       // It's important to do this before Babel processes the JS.
       {
+        test: /\.mp3$/,
+        include: paths.appSrc,
+        loader: 'file-loader'
+      },
+      {
         test: /\.(js|jsx)$/,
         enforce: 'pre',
         use: [

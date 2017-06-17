@@ -22,3 +22,13 @@ class PartyViewSet(ModelViewSet):
                 many=True
             ).data
         )
+
+    @detail_route()
+    def start(self, request, pk):
+        self.get_object().start()
+        return Response()
+
+    @detail_route()
+    def stop(self, request, pk):
+        self.get_object().stop()
+        return Response()

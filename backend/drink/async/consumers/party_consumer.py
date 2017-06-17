@@ -10,6 +10,9 @@ class PartyConsumer(JsonWebsocketConsumer):
     LOBBY_GROUP = 'party_{}'
     PARTY_MEMBER_JOINED = 'party_member_joined'
     PARTY_MEMBER_LEAVED = 'party_member_leaved'
+    PARTY_STARTED = 'party_started'
+    PARTY_STOPPED = 'party_stopped'
+    GAME_STARTS = 'game_starts'
     CHANNEL_SESSION_PARTY_ID = 'party_id'
 
     @staticmethod
@@ -45,7 +48,10 @@ class PartyConsumer(JsonWebsocketConsumer):
             self.message.reply_channel.send({"accept": True})
 
     def receive(self, content, **kwargs):
-        self.send(content=content)
+        self.group_send(
+            self.LOBBY_GROUP.format(self.kwargs.get(self.CHANNEL_SESSION_PARTY_ID)),
+            content
+        )
 
     def disconnect(self, message, **kwargs):
         self.party_member.delete()
@@ -82,4 +88,47 @@ class PartyConsumer(JsonWebsocketConsumer):
                 'party_member': model_to_dict(party_member),
                 'action': cls.PARTY_MEMBER_LEAVED,
             },
+        )
+
+    @classmethod
+    def party_started(cls, party_id):
+        """
+        LETS GET THIS PARTY STARTED!
+
+        :return:
+        :rtype:
+        """
+        cls.group_send(
+            cls.LOBBY_GROUP.format(party_id),
+            {
+                'action': cls.PARTY_STARTED,
+            }
+        )
+
+    @classmethod
+    def party_stopped(cls, party_id):
+        """
+        LETS GET THIS PARTY STOPPED!
+
+        :return:
+        :rtype:
+        """
+        cls.group_send(
+            cls.LOBBY_GROUP.format(party_id),
+            {
+                'action': cls.PARTY_STOPPED,
+            }
+        )
+
+    @classmethod
+    def game_starts(cls, party, party_members):
+        cls.group_send(
+            cls.LOBBY_GROUP.format(party.id),
+            {
+                'action': cls.GAME_STARTS,
+                'party_members': [
+                    model_to_dict(party_member)
+                    for party_member in party_members
+                ]
+            }
         )

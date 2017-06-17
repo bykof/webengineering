@@ -1,8 +1,11 @@
 import random
 import string
+import threading
 
 from django.db import models
 from abstract_models import APIModel
+from async.consumers.party_consumer import PartyConsumer
+from core.gamethread import GameThread
 
 
 class Party(APIModel):
@@ -14,6 +17,8 @@ class Party(APIModel):
         blank=True,
         help_text='Der Entrycode wird immer nach Erstellung der Party neu generiert.',
     )
+    gamethread_ident = models.CharField(max_length=255)
+    started = models.BooleanField(default=False)
 
     def _generate_entry_code(self):
         return ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(self.ENTRY_CODE_LENGTH))
@@ -36,6 +41,33 @@ class Party(APIModel):
 
         self.entry_code = entry_code
         super().save(force_insert, force_update, using, update_fields)
+
+    def start(self):
+        """
+        Start the party and send a notification to the party members
+
+        :return:
+        :rtype:
+        """
+        gamethread = GameThread(self)
+        gamethread.start()
+        self.started = True
+        self.gamethread_ident = gamethread.ident
+        self.save()
+        PartyConsumer.party_started(self.id)
+
+    def stop(self):
+        """
+        Stops the party and send a notification to the party members
+        :return:
+        :rtype:
+        """
+        for thread in threading.enumerate():
+            if str(thread.ident) == str(self.gamethread_ident):
+                thread.stop()
+        self.started = False
+        self.save()
+        PartyConsumer.party_stopped(self.id)
 
     class Meta:
         app_label = 'core'

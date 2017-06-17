@@ -8,6 +8,7 @@
     "ratchet-npm": "^2.0.4",
     "react": "^15.6.0",
     "react-dom": "^15.6.0",
+    "react-howler": "^3.6.2",
     "react-router": "^4.1.1",
     "react-router-dom": "^4.1.1",
     "sockjs-client": "^1.1.4"

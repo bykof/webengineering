@@ -8,6 +8,7 @@ import Start from './components/Start';
 import CreateParty from './components/CreateParty';
 import JoinParty from './components/JoinParty';
 import Lobby from './components/Lobby';
+import Game from "./components/Game";
 
 
 class App extends Component {
@@ -32,13 +33,10 @@ class App extends Component {
     return <Lobby {...props} application_store={this.props.application_store}/>;
   }
 
-  renderJoinParty(props){
-    return <JoinParty {...props} application_store={this.props.application_store} />;
+  renderGame(props){
+    return <Game {...props} application_store={this.props.application_store} />;
   }
 
-  renderLobby(props){
-    return <Lobby {...props} application_store={this.props.application_store} />;
-  }
 
   render() {
     
@@ -49,6 +47,7 @@ class App extends Component {
           <Route render={this.renderCreateParty.bind(this)}  path={'/create-party'}/>
           <Route render={this.renderJoinParty.bind(this)} path={'/join-party'}/>
           <Route render={this.renderLobby.bind(this)} path={'/lobby'}/>
+          <Route render={this.renderGame.bind(this)} path={'/game'}/>
         </div>
       </Router>
     );
