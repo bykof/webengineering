@@ -23,9 +23,12 @@ class PartyViewSet(ModelViewSet):
             ).data
         )
 
-    @detail_route()
+    @detail_route(methods=['POST'])
     def start(self, request, pk):
-        self.get_object().start()
+        party = self.get_object()
+        party.frontend_game_indexes = request.data.get('game_indexes', [])
+        party.save()
+        party.start()
         return Response()
 
     @detail_route()

@@ -2,6 +2,7 @@ import '../styles/Lobby.css'
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
+import games from './games';
 
 
 const PARTY_PARTY_MEMBERS = (party_id) => {
@@ -75,8 +76,13 @@ export default class Lobby extends Component {
   }
   
   startGame() {
-    axios.get(
-      'http://127.0.0.1:8000/api/parties/' + this.props.application_store.current_party.id + '/start/'
+    let keys = [];
+    for(let key in games) keys.push(key);
+    axios.post(
+      'http://127.0.0.1:8000/api/parties/' + this.props.application_store.current_party.id + '/start/',
+      {
+        game_indexes: keys
+      }
     ).catch(
       (error) => {
         console.log(error.response);

@@ -24,6 +24,7 @@ class GameThread(Thread):
         while self.running:
             sleep(1)
             self.tick += 1
+            print(self.party.frontend_game_indexes)
             print('Party: {} is running...'.format(self.party))
             if self.tick == 7:
                 print('Game in {} starts with {}'.format(self.party, self.party_members))

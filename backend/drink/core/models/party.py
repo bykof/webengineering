@@ -2,6 +2,7 @@ import random
 import string
 import threading
 
+from django.contrib.postgres.fields.jsonb import JSONField
 from django.db import models
 from abstract_models import APIModel
 from async.consumers.party_consumer import PartyConsumer
@@ -18,6 +19,7 @@ class Party(APIModel):
         help_text='Der Entrycode wird immer nach Erstellung der Party neu generiert.',
     )
     gamethread_ident = models.CharField(max_length=255, null=True, blank=True)
+    frontend_game_indexes = JSONField(null=True, blank=True)
     started = models.BooleanField(default=False)
 
     def _generate_entry_code(self):
