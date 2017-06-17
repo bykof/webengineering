@@ -17,7 +17,7 @@ class Party(APIModel):
         blank=True,
         help_text='Der Entrycode wird immer nach Erstellung der Party neu generiert.',
     )
-    gamethread_ident = models.CharField(max_length=255)
+    gamethread_ident = models.CharField(max_length=255, null=True, blank=True)
     started = models.BooleanField(default=False)
 
     def _generate_entry_code(self):

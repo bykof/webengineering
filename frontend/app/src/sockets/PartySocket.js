@@ -1,5 +1,8 @@
 const PARTY_MEMBER_JOINED = 'party_member_joined';
 const PARTY_MEMBER_LEAVED = 'party_member_leaved';
+const PARTY_STARTED = 'party_started';
+const PARTY_STOPPED = 'party_stopped';
+const GAME_STARTS = 'game_starts';
 
 export default class PartySocket {
   
@@ -14,38 +17,51 @@ export default class PartySocket {
     );
     
     // Registry for callbacks
+    this.clearCallbacks();
+    
+    this.onMessage = this.onMessage.bind(this);
+    this.clearCallbacks = this.clearCallbacks.bind(this);
+    this.socket.onmessage = this.onMessage;
+    if (this.socket.readyState === WebSocket.OPEN) this.socket.onopen();
+  }
+  
+  clearCallbacks() {
     this.defaultMessage = [];
     this.onPartyMemberJoined = [];
     this.onPartyMemberLeaved = [];
-    
-    this.onMessage = this.onMessage.bind(this);
-    this.socket.onmessage = this.onMessage;
-    if (this.socket.readyState === WebSocket.OPEN) this.socket.onopen();
+    this.onPartyStarted = [];
+    this.onPartyStopped = [];
+    this.onGameStarts = [];
+  }
+  
+  runCallback(callback, data) {
+    callback.forEach(
+      (func) => {
+        func(data);
+      }
+    );
   }
   
   onMessage(event) {
     let data = JSON.parse(event.data);
     switch (data.action) {
       case PARTY_MEMBER_JOINED:
-        this.onPartyMemberJoined.forEach(
-          (func) => {
-            func(data);
-          }
-        );
+        this.runCallback(this.onPartyMemberJoined, data);
         break;
       case PARTY_MEMBER_LEAVED:
-        this.onPartyMemberLeaved.forEach(
-          (func) => {
-            func(data);
-          }
-        );
+        this.runCallback(this.onPartyMemberLeaved, data);
+        break;
+      case PARTY_STARTED:
+        this.runCallback(this.onPartyStarted, data);
+        break;
+      case PARTY_STOPPED:
+        this.runCallback(this.onPartyStopped, data);
+        break;
+      case GAME_STARTS:
+        this.runCallback(this.onGameStarts, data);
         break;
       default:
-        this.defaultMessage.forEach(
-          (func) => {
-            func(data);
-          }
-        );
+        this.runCallback(this.defaultMessage, data);
     }
   }
   

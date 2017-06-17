@@ -54,7 +54,11 @@ class PartyConsumer(JsonWebsocketConsumer):
         )
 
     def disconnect(self, message, **kwargs):
+        party = self.party_member.party
         self.party_member.delete()
+        if party.partymember_set.count() == 0:
+            if party.gamethread_ident:
+                party.stop()
 
     @classmethod
     def party_member_joined(cls, party_member):

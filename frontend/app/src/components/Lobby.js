@@ -2,7 +2,7 @@ import '../styles/Lobby.css'
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
-import PartySocket from "../sockets/PartySocket";
+
 
 const PARTY_PARTY_MEMBERS = (party_id) => {
   return 'http://127.0.0.1:8000/api/parties/' + party_id + '/party_members/';
@@ -21,13 +21,14 @@ export default class Lobby extends Component {
   }
   
   componentWillUnmount() {
-    this.party_socket.close();
+    this.party_socket.clearCallbacks();
   }
   
   initPartyWebsocket() {
-    this.party_socket = new PartySocket(this.props.application_store);
+    this.party_socket = this.props.application_store.create_party_socket();
     this.party_socket.onPartyMemberLeaved.push(this.onPartyMemberLeaved.bind(this));
     this.party_socket.onPartyMemberJoined.push(this.onPartyMemberJoined.bind(this));
+    this.party_socket.onPartyStarted.push(this.onPartyStarted.bind(this));
   }
   
   retrieveMembers() {
@@ -68,6 +69,21 @@ export default class Lobby extends Component {
     this.setState({members: this.state.members});
   }
   
+  onPartyStarted() {
+    console.log('party has started!');
+    this.props.history.push('/game');
+  }
+  
+  startGame() {
+    axios.get(
+      'http://127.0.0.1:8000/api/parties/' + this.props.application_store.current_party.id + '/start/'
+    ).catch(
+      (error) => {
+        console.log(error.response);
+      }
+    )
+  }
+  
   render() {
     
     const renderedMembers = this.state.members.map(
@@ -90,7 +106,7 @@ export default class Lobby extends Component {
         {renderedMembers}
         <nav className="bar bar-tab">
           <Link to='/' className="tab-item danger">Abbrechen</Link>
-          <Link to="/lobby" className="tab-item primary">Spiel starten</Link>
+          <a onClick={this.startGame.bind(this)} className="tab-item primary">Spiel starten</a>
         </nav>
       </div>
     );
