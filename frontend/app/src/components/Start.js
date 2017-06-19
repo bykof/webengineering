@@ -14,6 +14,7 @@ export default class Start extends Component {
   render() {
     return (
       <div className="content">
+        <img src={logo} className=""/>
         <h1>Drink Olympics</h1>
         <nav className="bar bar-tab">
           <Link to="/create-party" className="btn primary">Spiel erstellen</Link>
