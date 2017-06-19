@@ -32,13 +32,30 @@ p {
     color: black;
 }
 
+.bar-tab{
+    background-color: #f1c40f;
+    border: none;
+}
+
+.bar .btn{
+    padding: 12px 24px 10px;
+    top: -28px;
+    border-radius: 0px;
+    font-size: 20px;
+    width: 230px;
+    margin-bottom: 28px;
+    line-height: 1.5;
+}
+
 .content {
     background-color: #f1c40f;
 }
 
 .primary {
     background-color: #3498db;
-    color: #ecf0f1 !important;
+    /*color: #ecf0f1 !important;*/
+    color: #000000 !important;
+    border: none;
 }
 
 .primary:active {
@@ -56,11 +73,14 @@ p {
 
 .second-primary {
     background-color: #1abc9c;
-    color: #ecf0f1 !important;
+    /*color: #ecf0f1 !important;*/
+    color: #000000 !important;
+    border: none;
 }
 
 .second-primary:active {
     background-color: #16a085;
+    border: none;
 }
 
 .transition-enter {
