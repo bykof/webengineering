@@ -40,7 +40,7 @@ class GameThread(Thread):
         :rtype: list
         """
         party_members_length = len(self.party_members)
-        max_party_members = random.randint(2, party_members_length)
+        max_party_members = random.randint(1, party_members_length)
         if max_party_members % 2 != 0 and max_party_members != party_members_length:
             max_party_members -= 1
         random.shuffle(list(self.party_members))

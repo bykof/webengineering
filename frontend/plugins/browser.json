@@ -15,9 +15,6 @@
         },
         "cordova-plugin-device-motion": {
             "PACKAGE_NAME": "com.hsrm.drink"
-        },
-        "cordova-plugin-browsersync": {
-            "PACKAGE_NAME": "com.hsrm.drink"
         }
     },
     "dependent_plugins": {}

@@ -132,7 +132,7 @@ export default class Lobby extends Component {
     return (
       <div className="content">
         <h1>Lobby</h1>
-        <h4>Code: {this.props.application_store.current_party.entry_code}</h4>
+        <h4>Code: <span className="code">{this.props.application_store.current_party.entry_code}</span></h4>
         <h4>Liste der Spieler:</h4>
         {renderedErrorMessage}
         {renderedMembers}
