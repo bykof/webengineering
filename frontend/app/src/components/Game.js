@@ -13,8 +13,10 @@ import bomb_exploding_sound from '../assets/bomb_exploding.mp3';
 const WAITING = 'waiting';
 const PREPARE = 'prepare';
 const BOOM = 'boom';
-const PLAYING = 'playing';
+
 const DRINK = 'drink';
+const BOMB = 'bomb';
+const PLAYING = 'playing';
 
 import games from './games';
 
@@ -24,7 +26,8 @@ export default class Game extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      status: WAITING,
+      sound_status: WAITING,
+      content_status: BOMB,
       soundPosition: 0,
       current_game: null,
     };
@@ -54,7 +57,7 @@ export default class Game extends React.Component {
               this.props.application_store.current_teams = data.teams;
               this.setState(
                 {
-                  status: PREPARE,
+                  sound_status: PREPARE,
                   current_game: games[data.game_index],
                 }
               );
@@ -66,7 +69,7 @@ export default class Game extends React.Component {
   }
   
   renderSound() {
-    switch (this.state.status) {
+    switch (this.state.sound_status) {
       case WAITING:
         return (
           <ReactHowler
@@ -81,7 +84,7 @@ export default class Game extends React.Component {
             src={bomb_ticking_sound}
             playing={true}
             onEnd={
-              () => this.setState({status: BOOM})
+              () => this.setState({sound_status: BOOM})
             }
           />
         );
@@ -90,8 +93,8 @@ export default class Game extends React.Component {
           <ReactHowler
             src={bomb_exploding_sound}
             playing={true}
-            onEnd={
-              () => this.setState({status: PLAYING})
+            onPlay={
+              () => this.setState({content_status: PLAYING})
             }
           />
         );
@@ -99,13 +102,13 @@ export default class Game extends React.Component {
   }
   
   renderAnimation() {
-    if (this.state.status === PREPARE) {
+    if (this.state.sound_status === PREPARE) {
       return <div className="flash" />
     }
   }
   
   renderContent() {
-    switch(this.state.status) {
+    switch(this.state.content_status) {
       case PLAYING:
         return React.createElement(
           this.state.current_game,
@@ -118,19 +121,19 @@ export default class Game extends React.Component {
       case DRINK:
         setTimeout(
           () => {
-            this.setState({status: WAITING});
+            this.setState({sound_status: WAITING, content_status: BOMB});
           },
           2000
         );
         return <div className="drink">DRINK!!!</div>;
-      default:
+      case BOMB:
         return <img src={bomb}/>
     }
   }
   
   onGameFinished(win_or_loose) {
     console.log(win_or_loose);
-    this.setState({status: DRINK});
+    this.setState({content_status: DRINK});
   }
   
   render() {

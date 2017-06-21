@@ -53,13 +53,13 @@ p {
 
 .primary {
     background-color: #3498db;
-    /*color: #ecf0f1 !important;*/
-    color: #000000 !important;
+    color: #ecf0f1 !important;
     border: none;
 }
 
 .primary:active {
     background-color: #2980b9;
+    color: #ecf0f1 !important;
 }
 
 .danger {
@@ -74,12 +74,13 @@ p {
 .second-primary {
     background-color: #1abc9c;
     /*color: #ecf0f1 !important;*/
-    color: #000000 !important;
+    color: #ecf0f1 !important;
     border: none;
 }
 
 .second-primary:active {
     background-color: #16a085;
+    color: #ecf0f1 !important;
     border: none;
 }
 

@@ -12,7 +12,10 @@ export default class FastTipping extends GameComponent {
   }
   
   onDefaultMessage(data) {
-    this.state.points[data.party_member.id] = data.clickCount;
+    this.state.points[data.party_member.id] = {
+      clickCount: data.clickCount,
+      party_member: data.party_member
+    };
     this.setState({points: this.state.points});
   }
   
@@ -31,7 +34,15 @@ export default class FastTipping extends GameComponent {
   }
   
   renderPoints() {
-  
+    let renderedPoints = [];
+    for (let key in this.state.points) {
+      renderedPoints.push(
+        <p key={key}>
+          {this.state.points[key].party_member.name}: {this.state.points[key].clickCount}
+        </p>
+      );
+    }
+    return renderedPoints;
   }
   
   onGameFinished() {
