@@ -46,6 +46,7 @@ export default class FastTipping extends GameComponent {
   }
   
   onGameFinished() {
+    // Kann man ausrechnen ob man selbst gewonnen hat.
     super.onGameFinished();
   }
   

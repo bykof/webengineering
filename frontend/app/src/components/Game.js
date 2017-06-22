@@ -133,6 +133,7 @@ export default class Game extends React.Component {
   
   onGameFinished(win_or_loose) {
     console.log(win_or_loose);
+    
     this.setState({content_status: DRINK});
   }
   
