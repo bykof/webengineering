@@ -1,0 +1,105 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "https://github.com/edimuj/cordova-plugin-audioinput.git",
+        "scope": null,
+        "escapedName": null,
+        "name": null,
+        "rawSpec": "https://github.com/edimuj/cordova-plugin-audioinput.git",
+        "spec": "git+https://github.com/edimuj/cordova-plugin-audioinput.git",
+        "type": "hosted",
+        "hosted": {
+          "type": "github",
+          "ssh": "git@github.com:edimuj/cordova-plugin-audioinput.git",
+          "sshUrl": "git+ssh://git@github.com/edimuj/cordova-plugin-audioinput.git",
+          "httpsUrl": "git+https://github.com/edimuj/cordova-plugin-audioinput.git",
+          "gitUrl": "git://github.com/edimuj/cordova-plugin-audioinput.git",
+          "shortcut": "github:edimuj/cordova-plugin-audioinput",
+          "directUrl": "https://raw.githubusercontent.com/edimuj/cordova-plugin-audioinput/master/package.json"
+        }
+      },
+      "/Users/internet/Desktop/FHWiesbaden/8.Semester/webengineering/frontend/node_modules"
+    ]
+  ],
+  "_from": "git+https://github.com/edimuj/cordova-plugin-audioinput.git",
+  "_id": "cordova-plugin-audioinput@0.3.0",
+  "_inCache": true,
+  "_location": "/cordova-plugin-audioinput",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "https://github.com/edimuj/cordova-plugin-audioinput.git",
+    "scope": null,
+    "escapedName": null,
+    "name": null,
+    "rawSpec": "https://github.com/edimuj/cordova-plugin-audioinput.git",
+    "spec": "git+https://github.com/edimuj/cordova-plugin-audioinput.git",
+    "type": "hosted",
+    "hosted": {
+      "type": "github",
+      "ssh": "git@github.com:edimuj/cordova-plugin-audioinput.git",
+      "sshUrl": "git+ssh://git@github.com/edimuj/cordova-plugin-audioinput.git",
+      "httpsUrl": "git+https://github.com/edimuj/cordova-plugin-audioinput.git",
+      "gitUrl": "git://github.com/edimuj/cordova-plugin-audioinput.git",
+      "shortcut": "github:edimuj/cordova-plugin-audioinput",
+      "directUrl": "https://raw.githubusercontent.com/edimuj/cordova-plugin-audioinput/master/package.json"
+    }
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "git+https://github.com/edimuj/cordova-plugin-audioinput.git#164e69cd91a62ec28d1da28d0dca03fed71af6c8",
+  "_shasum": "a3df28e1a6c4e4e07bd3019955fe096e5adaa58f",
+  "_shrinkwrap": null,
+  "_spec": "https://github.com/edimuj/cordova-plugin-audioinput.git",
+  "_where": "/Users/internet/Desktop/FHWiesbaden/8.Semester/webengineering/frontend/node_modules",
+  "author": {
+    "name": "Edin Mujkanovic"
+  },
+  "bugs": {
+    "url": "https://github.com/edimuj/cordova-plugin-audioinput/issues"
+  },
+  "cordova": {
+    "id": "cordova-plugin-audioinput",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "dependencies": {},
+  "description": "This cordova plugin enables audio capture from the device microphone, by in (near) real-time forwarding raw audio data to the web layer of your application.",
+  "devDependencies": {},
+  "gitHead": "164e69cd91a62ec28d1da28d0dca03fed71af6c8",
+  "homepage": "https://github.com/edimuj/cordova-plugin-audioinput#readme",
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios",
+    "cordova plugin",
+    "ios",
+    "android",
+    "cordova",
+    "web-audio-api",
+    "web audio api",
+    "web audio",
+    "waapi",
+    "microphone",
+    "mic",
+    "audio",
+    "input",
+    "source",
+    "AudioNode",
+    "phonegap"
+  ],
+  "license": "MIT",
+  "name": "cordova-plugin-audioinput",
+  "optionalDependencies": {},
+  "readme": "# cordova-plugin-audioinput\nThis Cordova plugin enables audio capture from the device microphone, by in (near) real-time forwarding raw audio data to the web layer of your web application.\nA typical usage scenario for this plugin would be to use the captured microphone audio as a source for a Web audio API based applications.\n\nSince `Navigator.getUserMedia()` still isn't supported by all browsers, this plugin provides similar functionality.\nThis is especially true for Safari mobile on iOS devices, where the Web Audio API is supported, but currently has no support for `getUserMedia`.\n\nThe plugin supports two different methods for microphone capture:\n\n1. Let the plugin handle the encoding of raw data by using the `audioinput` object as an [AudioNode](https://developer.mozilla.org/en-US/docs/Web/API/AudioNode), which can be connected to your Web audio API node chain.\n2. Subscribing to `audioinput` events in order to receive chunks of raw audio data, which then can be processed by your app. Using this method doesn't require Web audio support on the device.\n\n## Supported Platforms\n* Android\n* iOS\n\n## Installation\nFrom the Cordova Plugin Repository:\n```\ncordova plugin add cordova-plugin-audioinput\n```\n\nor by using the GitHub project URL:\n```\ncordova plugin add https://github.com/edimuj/cordova-plugin-audioinput.git\n```\n\nBuilding with the Intel XDK is also supported. I haven't tested the plugin with PhoneGap build, so feel free to message me if you tried it with success there.\n\n## Events\nWhen using the event based approach, the plugin sends the following `window` events:\n\n* `audioinput`\n* `audioinputerror`\n\n## Basic Usage Example - AudioNode\nAfter the Cordova `deviceready` event has fired:\n```javascript\n\n// Start with default values and let the plugin handle conversion of \n// raw data, and therefore will not send any audioinput events.\n// If an audio context is not provided, the plugin will create one for you.\n\naudioinput.start({\n    streamToWebAudio: true\n});\n\n// Connect the audioinput to the device speakers in order to hear the captured sound.\n\naudioinput.connect(audioinput.getAudioContext().destination);\n\n```\n\n## Advanced Usage Example - Events\nUse the event based method if you need more control over the capture process.\n\nSubscribe to `audioinput` events: The event will continuously be fired during capture, allowing the application to receive chunks of raw audio data.\n\nYou can also subscribe to `audioinputerror` error events as seen in the example below.\n```javascript\n\nfunction onAudioInput( evt ) {\n    // 'evt.data' is an integer array containing raw audio data\n    //   \n    console.log( \"Audio data received: \" + evt.data.length + \" samples\" );\n    \n    // ... do something with the evt.data array ...\n}\n\n// Listen to audioinput events\nwindow.addEventListener( \"audioinput\", onAudioInput, false );\n\nvar onAudioInputError = function( error ) {\n    alert( \"onAudioInputError event recieved: \" + JSON.stringify(error) );\n};\n\n// Listen to audioinputerror events\nwindow.addEventListener( \"audioinputerror\", onAudioInputError, false );\n\n```\n\nAfter the Cordova `deviceready` event has fired:\n```javascript\n\n// Start capturing audio from the microphone\naudioinput.start({\n    // Here we've changed the bufferSize from the default to 8192 bytes.\n    bufferSize: 8192 \n});\n\n// Stop capturing audio input\naudioinput.stop()\n\n```\n\n## Demos\nThe `demo` folder contains some usage examples.\n\nRemember that unfiltered microphone output likely will create a nasty audio feedback loop, so lower the volume before trying out the demos!\n\n* webaudio-demo - How to use the audioinput object as a Web Audio API AudioNode that can be connected to your own chain of AudioNodes.\n* events-demo - How to subscribe to the audioinput events to get and handle chunks of raw audio data.\n* wav-demo - How to encode recorded data to WAV format and use the resulting blob as a source for Audio elements.\n* file-demo - How to encode recorded data to WAV format and save the resulting blob as a file. To run this demo ```cordova plugin add cordova-plugin-file``` is required.\n\n## API\n**Start capturing audio** from the microphone.\nIf your app doesn't have recording permission on the users device, the plugin will ask for permission when start is called. And the new Android 6.0 runtime permissions are also supported.\n```javascript\naudioinput.start( captureCfg );\n```\n\nWhere `captureCfg` can either be empty, null or contain/override any of the following parameters and their default values. \nPlease note that not all audio configuration combinations are supported by all devices, the default settings seems to work on most devices though:\n```javascript\nvar captureCfg = {\n\n    // The Sample Rate in Hz.\n    // For convenience, use the audioinput.SAMPLERATE constants to set this parameter.\n    sampleRate: audioinput.SAMPLERATE.CD_AUDIO_44100Hz,\n    \n    // Maximum size in bytes of the capture buffer.\n    bufferSize: 16384,\n    \n    // The number of channels to use: Mono (1) or Stereo (2).\n    // For convenience, use the audioinput.CHANNELS constants to set this parameter.\n    channels: audioinput.CHANNELS.MONO,\n    \n    // The audio format. Currently PCM_16BIT and PCM_8BIT are supported.\n    // For convenience, use the audioinput.FORMAT constant to access the possible \n    // formats that the plugin supports.\n    format: audioinput.FORMAT.PCM_16BIT,\n    \n    // Specifies if the audio data should be normalized or not.\n    normalize: true,\n    \n    // Specifies the factor to use if normalization is performed.\n    normalizationFactor: 32767.0,\n    \n    // If set to true, the plugin will handle all conversion of the data to \n    // web audio. The plugin can then act as an AudioNode that can be connected \n    // to your web audio node chain.\n    streamToWebAudio: false,\n    \n    // Used in conjunction with streamToWebAudio. If no audioContext is given, \n    // one (prefixed) will be created by the plugin.\n    audioContext: null,\n    \n    // Defines how many chunks will be merged each time, a low value means lower latency\n    // but requires more CPU resources.\n    concatenateMaxChunks: 10,\n    \n    // Specifies the type of the type of source audio your app requires.\n    // For convenience, use the audioinput.AUDIOSOURCE_TYPE constants to set this parameter:\n    // -DEFAULT\n    // -CAMCORDER - Microphone audio source with same orientation as camera if available.\n    // -UNPROCESSED - Unprocessed sound if available.\n    // -VOICE_COMMUNICATION - Tuned for voice communications such as VoIP.\n    // -MIC - Microphone audio source. (Android only)\n    // -VOICE_RECOGNITION - Tuned for voice recognition if available (Android only)\n    audioSourceType: audioinput.AUDIOSOURCE_TYPE.DEFAULT\n    \n};\n\n```\n\n**Stop capturing audio** from the microphone:\n```javascript\naudioinput.stop();\n```\n\n**Check if the plugin is capturing**, i.e. if it is started or not:\n```javascript\naudioinput.isCapturing(); // Returns true if it is started\n```\n\n**Get the current configuration** from the plugin:\n```javascript\naudioinput.getCfg();\n```\n\nWhen using the `streamToWebAudio` option, you can **connect the plugin** to your own Web audio node chain:\n```javascript\naudioinput.connect( audioNode );\n```\n\nWhen using `streamToWebAudio` you can **disconnect the previously connected plugin** from your your own Web audio node chain:\n```javascript\naudioinput.disconnect();\n```\n\nWhen using `streamToWebAudio`, and have not supplied the plugin with an Audio context, the following method is used to **get the internally created Web Audio context**:\n```javascript\naudioinput.getAudioContext();\n```\n\n## Related projects\n* The [speechcapture](https://github.com/edimuj/speechcapture) javascript library can be used together with this plugin to detect speech events, as well as capturing the audio: [speechcapture on github](https://github.com/edimuj/speechcapture).\n\n## Todo list\n[Enhancements](https://github.com/edimuj/cordova-plugin-audioinput/labels/enhancement)\n\n## Motivate us!\nDo you use this plugin in an published app? Feel free to star the project and/or message me about it. It is always super-exciting to see real-world applications using this plugin, and it helps us to prioritize new features and bug fixes.\n\nAnd if you find this plugin useful, ensure that it is kept alive by donating:\n\n[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=R9WGMBB2BMS34)\n\n## Contributing\nThis project is open-source, so contributions are welcome. Just ensure that your changes doesn't break backward compatibility!\n\n1. Fork the project.\n2. Create your feature branch (git checkout -b my-new-feature).\n3. Commit your changes (git commit -am 'Add some feature').\n4. Push to the branch (git push origin my-new-feature).\n5. Create a new Pull Request.\n\n## Credits\n* The plugin is created by Edin Mujkanovic.\n\n[Other contributors](https://github.com/edimuj/cordova-plugin-audioinput/graphs/contributors)\n\n## License\n[MIT License](https://github.com/edimuj/cordova-plugin-audioinput/blob/master/LICENSE)\n",
+  "readmeFilename": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/edimuj/cordova-plugin-audioinput.git"
+  },
+  "version": "0.3.0"
+}

@@ -23,7 +23,9 @@ export default class GameComponent extends React.Component {
     this.onGameFinishedTimeout = setTimeout(
       this.onGameFinished,
       this.MAX_GAME_SECONDS * 1000
-    )
+    );
+
+    this.onGameStart();
   }
   
   componentWillMount() {
