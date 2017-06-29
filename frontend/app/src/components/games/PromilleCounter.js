@@ -11,10 +11,21 @@ export default class PromilleCounter extends GameComponent {
     };
 
     this.onAudioInput = this.onAudioInput.bind(this);
+    this.initAudioInput();
+  }
+
+  initAudioInput() {
+    // Listen to audioinput events
+    window.addEventListener("audioinput", this.onAudioInput, false);
+    // Start capturing audio from the microphone
+    audioinput.start({
+      // Here we've changed the bufferSize from the default to 8192 bytes.
+      bufferSize: 8192
+    });
   }
 
   onAudioInput(event) {
-    console.log("Audio data received: " + evt.data.length + " samples");
+    console.log("Audio data received: " + event.data.length + " samples");
     this.setState({audioData: event.data});
   }
 
@@ -28,18 +39,6 @@ export default class PromilleCounter extends GameComponent {
     super.onGameFinished(true);
   }
 
-  // Wird aufgerufen wenn das Spiel startet
-  onGameStart() {
-
-    // Listen to audioinput events
-    window.addEventListener("audioinput", this.onAudioInput, false);
-    // Start capturing audio from the microphone
-    audioinput.start({
-      // Here we've changed the bufferSize from the default to 8192 bytes.
-      bufferSize: 8192
-    });
-  }
-
   // Wird aufgerufen bei jeder Sekunde (15 Mal)
   onTick() {
   }
@@ -48,11 +47,13 @@ export default class PromilleCounter extends GameComponent {
     return (
       <div>
         <h1>Promille Zähler</h1>
-        {this.state.audioData.map(
-          (data) => {
-            return <span>{data}</span>
-          }
-        )}
+        {this.state.audioData ? (
+          this.state.audioData.map(
+            (data) => {
+              return <span>{data}</span>
+            }
+          )
+        ) : null}
       </div>
     )
   }
