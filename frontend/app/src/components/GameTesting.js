@@ -3,6 +3,7 @@ import React from 'react';
 import '../styles/Game.css';
 
 import games from './games';
+import Link from "react-router-dom/es/Link";
 
 
 export default class GameTesting extends React.Component {
@@ -38,7 +39,13 @@ export default class GameTesting extends React.Component {
   
   renderContent() {
     
-    if (!(this.props.match.params.game_id in games)) return 'Spiel nicht gefunden!';
+    if (!(this.props.match.params.game_id in games)) {
+      return Object.keys(games).map(
+        (key) => {
+          return <Link key={key} to={'/gametesting/' + key}>{key}</Link>
+        }
+      )
+    }
     
     return React.createElement(
       games[this.props.match.params.game_id],

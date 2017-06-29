@@ -1,8 +1,7 @@
 import React from 'react';
-
 import ReactHowler from 'react-howler';
-
 import '../styles/Game.css';
+import games from './games';
 
 import bomb from '../assets/bomb.png';
 import bomb_burning_sound from '../assets/bomb_burning.mp3';
@@ -16,9 +15,8 @@ const BOOM = 'boom';
 
 const DRINK = 'drink';
 const BOMB = 'bomb';
+const GAME_DESCRIPTION = 'game_description';
 const PLAYING = 'playing';
-
-import games from './games';
 
 
 export default class Game extends React.Component {
@@ -34,6 +32,8 @@ export default class Game extends React.Component {
     
     this.renderAnimation = this.renderAnimation.bind(this);
     this.renderSound = this.renderSound.bind(this);
+    this.resetContent = this.resetContent.bind(this);
+    
     this.party_socket = null;
   }
   
@@ -89,12 +89,13 @@ export default class Game extends React.Component {
           />
         );
       case BOOM:
+        if (this.state.content_status === PLAYING) return;
         return (
           <ReactHowler
             src={bomb_exploding_sound}
             playing={true}
             onPlay={
-              () => this.setState({content_status: PLAYING})
+              () => this.setState({content_status: GAME_DESCRIPTION})
             }
           />
         );
@@ -103,12 +104,16 @@ export default class Game extends React.Component {
   
   renderAnimation() {
     if (this.state.sound_status === PREPARE) {
-      return <div className="flash" />
+      return <div className="flash"/>
     }
   }
   
+  resetContent() {
+    this.setState({sound_status: WAITING, content_status: BOMB});
+  }
+  
   renderContent() {
-    switch(this.state.content_status) {
+    switch (this.state.content_status) {
       case PLAYING:
         return React.createElement(
           this.state.current_game,
@@ -118,10 +123,21 @@ export default class Game extends React.Component {
             onGameFinished: this.onGameFinished.bind(this)
           }
         );
+      case GAME_DESCRIPTION:
+        setTimeout(
+          () => {
+            this.setState({content_status: PLAYING});
+          },
+          3000
+        );
+        return (
+          <h3>{this.state.current_game.description}</h3>
+        );
+        break;
       case DRINK:
         setTimeout(
           () => {
-            this.setState({sound_status: WAITING, content_status: BOMB});
+            this.resetContent();
           },
           2000
         );
@@ -131,10 +147,17 @@ export default class Game extends React.Component {
     }
   }
   
-  onGameFinished(win_or_loose) {
-    console.log(win_or_loose);
-    
-    this.setState({content_status: DRINK});
+  /**
+   * Won gibt an ob das Spiel gewonnen wurde!
+   * @param won: boolean
+   */
+  onGameFinished(won) {
+    if (won) {
+      this.setState({content_status: DRINK});
+    }
+    else {
+      this.resetContent();
+    }
   }
   
   render() {
