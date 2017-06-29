@@ -7,12 +7,13 @@ import "ratchet-npm/dist/css/ratchet.min.css";
 
 import './styles/index.css';
 
-import FastClick from 'fastclick';
+import injectTapEventPlugin from 'react-tap-event-plugin';
 import ApplicationStore from "./stores/ApplicationStore";
 
 document.addEventListener(
   'deviceready',
   () => {
+    injectTapEventPlugin();
     ReactDOM.render(
       <App application_store={new ApplicationStore()} />,
       document.getElementById('root')

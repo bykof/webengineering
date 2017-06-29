@@ -14,6 +14,7 @@ export default class Start extends Component {
   render() {
     return (
       <div className="content">
+        <Link to={'/gametesting/'}>Debug Games</Link>
         <h1>Drink Olympics</h1>
         <img src={logo} />
         <nav className="bar bar-tab">

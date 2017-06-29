@@ -21,6 +21,7 @@ class GameThread(Thread):
         self.party = party
         self.tick = 0
         self.running = False
+        self.playing_party_members = []
 
     @property
     def party_members(self):
@@ -44,8 +45,10 @@ class GameThread(Thread):
 
         if max_party_members == 1 and party_members_length >= max_party_members:
             max_party_members = party_members_length
+
         if max_party_members % 2 != 0 and max_party_members != party_members_length:
             max_party_members -= 1
+
         random.shuffle(list(self.party_members))
         return self.party_members[:max_party_members]
 
