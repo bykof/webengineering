@@ -13,6 +13,7 @@ export default class BubblePop extends GameComponent {
       points: 0,
       color: ['red', 'green', 'blue'],
       colorIndex: 0,
+      // Ist eine Liste aus Listen mit Spieler und Punkten
       members: []
     };
 
@@ -27,11 +28,7 @@ export default class BubblePop extends GameComponent {
   // Wird aufgerufen, wenn eine Nachricht über this.socket.send versendet wurde
   onDefaultMessage(data) {
     this.state.members[data.party_member.name] = data.clickCount;
-    //console.log(this.state.members);
-  }
-
-  // Wird aufgerufen wenn das Spiel vorbei ist (nach 15 Sekunden)
-  onGameFinished() {
+    this.setState({members: this.state.members});
   }
 
   // Wird aufgerufen wenn das Spiel startet
@@ -42,8 +39,46 @@ export default class BubblePop extends GameComponent {
     this.timedText();
   }
 
+  componentDidMount() {
+  }
+
   // Wird aufgerufen bei jeder Sekunde (15 Mal)
   onTick() {
+  }
+
+  //Gibt den Gewinner mit Punkte zurueck
+  //aber bei Unentschieden eine Liste der Gewinner
+  checkWinnerTeam() {
+    // Name, Punkte, und 1 ist untentschieden
+    let winner = [['default', 0,0]];
+    for (let member in this.state.members) {
+      if (this.state.members[member] > winner[0][1]) {
+        winner = [member, this.state.members[member], 1];
+      }
+      else if (this.state.members[member] === winner[1]) {
+        winner = [member, this.state.members[member], 0];
+      }
+    }
+    return winner;
+  }
+
+  // Nach 15 sek wird diese Methode ausgeführt.
+  // Return true, wenn Spieler/Team gewonnen hat
+  // sons False
+  // Bei unentschieden verlieren alle!
+  onGameFinished() {
+    let winner = this.checkWinnerTeam();
+    //console.log(winners);
+    //Wenn liste größer 1 dann immer unentschieden
+    console.log(winner);
+    if (this.props.application_store.current_member.name === winner[0] && winner[2] === 1) {
+      super.onGameFinished(true);
+      console.log("Gewonnen!");
+    } else {
+      console.log("Verloren!");
+      super.onGameFinished(false);
+    }
+
   }
 
   timedText() {
@@ -85,8 +120,7 @@ export default class BubblePop extends GameComponent {
         {
           party_member: this.props.application_store.current_member,
           clickCount: this.state.points
-        }
-      );
+        });
     });
   }
 
@@ -94,8 +128,8 @@ export default class BubblePop extends GameComponent {
     let renderedPoints = [];
     for (let member in this.state.members) {
       renderedPoints.push(
-        <p key={member}>
-          {member} : {this.state.members[member]}
+        <p key={member} className="points" style={{top: -200}}>
+          {member} : {this.state.members[member]} <br/>
         </p>
       );
     }
@@ -105,7 +139,7 @@ export default class BubblePop extends GameComponent {
   render() {
     return (
       <div>
-        <h2>{this.renderPoints()}</h2>
+        {this.renderPoints()}
         {
           this.state.timer === -1 ? (
             <div>

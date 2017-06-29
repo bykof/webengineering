@@ -7,3 +7,7 @@
     left: 0px;
     border-radius: 100px;
 }
+
+.points {
+    position: relative;
+}
