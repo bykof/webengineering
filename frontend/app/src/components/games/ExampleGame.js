@@ -6,7 +6,9 @@ export default class ExampleGame extends GameComponent {
   onDefaultMessage(data) {}
   
   // Wird aufgerufen wenn das Spiel vorbei ist (nach 15 Sekunden)
-  onGameFinished() {}
+  onGameFinished() {
+    super.onGameFinished(true);
+  }
   
   // Wird aufgerufen wenn das Spiel startet
   onGameStart() {}

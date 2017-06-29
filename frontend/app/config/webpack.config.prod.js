@@ -111,19 +111,22 @@ module.exports = {
       {
         test: /\.mp3$/,
         include: paths.appSrc,
-        loader: 'file-loader'
+        loader: require.resolve('file-loader'),
+        query: {
+          name: 'static/media/[name].[ext]'
+        }
       },
       {
         test: /\.(js|jsx)$/,
         enforce: 'pre',
         use: [
-          {
-            options: {
-              formatter: eslintFormatter,
-              
-            },
-            loader: require.resolve('eslint-loader'),
-          },
+          //{
+          //  options: {
+          //    formatter: eslintFormatter,
+          //
+          //  },
+          //  loader: require.resolve('eslint-loader'),
+          //},
         ],
         include: paths.appSrc,
       },
@@ -145,6 +148,7 @@ module.exports = {
           /\.gif$/,
           /\.jpe?g$/,
           /\.png$/,
+          /\.mp3$/,
         ],
         loader: require.resolve('file-loader'),
         options: {

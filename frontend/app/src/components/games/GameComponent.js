@@ -3,7 +3,31 @@ import React from "react";
 
 export default class GameComponent extends React.Component {
   
-  MAX_GAME_SECONDS = 15;
+  static MAX_GAME_SECONDS = 15;
+  
+  static description = 'Bitte noch eine Beschreibung zum Spiel hinzufügen!!!';
+  
+  /**
+   * Das GameComponent dient dazu alle Spiele zu generalisieren.
+   * Es funktioniert quesi wie eine abstrakte Klasse.
+   *
+   * Props werden befüllt mit:
+   * - application_store - der aktuelle Application Store
+   * - teams: Eine Liste von Listen mit den jeweiligen TeamMembern
+   *
+   * Beispiel für teams:
+   *
+   * [
+   *   [
+   *     {party_member_1}, {party_member_2}
+   *   ],
+   *   [
+   *     {party_member_3}, {party_member_4}
+   *   ]
+   * ]
+   *
+   * @param props
+   */
   
   constructor(props) {
     super(props);
@@ -22,8 +46,10 @@ export default class GameComponent extends React.Component {
     
     this.onGameFinishedTimeout = setTimeout(
       this.onGameFinished,
-      this.MAX_GAME_SECONDS * 1000
-    )
+      GameComponent.MAX_GAME_SECONDS * 1000
+    );
+
+    this.onGameStart();
   }
   
   componentWillMount() {
@@ -49,9 +75,9 @@ export default class GameComponent extends React.Component {
     if ('onGameStart' in this.props) this.props.onGameStart();
   }
   
-  onGameFinished(data) {
+  onGameFinished(won) {
     clearInterval(this.onTickInterval);
-    if ('onGameFinished' in this.props) this.props.onGameFinished(data);
+    if ('onGameFinished' in this.props) this.props.onGameFinished(won);
   }
   
   onTick() {
@@ -60,6 +86,6 @@ export default class GameComponent extends React.Component {
   }
   
   render() {
-    throw 'NotImplemented!';
+    return <div>NotImplemented!</div>;
   }
 }
