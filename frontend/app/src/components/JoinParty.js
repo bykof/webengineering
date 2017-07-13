@@ -7,6 +7,7 @@ import '../styles/JoinParty.css';
 import LoadingSpinner from "./LoadingSpinner";
 import Error from "./Error";
 import OverlayMessage from "./OverlayMessage";
+import {API_HOST} from "../config";
 
 
 export default class JoinParty extends Component {
@@ -40,7 +41,7 @@ export default class JoinParty extends Component {
   
   createMember() {
     axios.post(
-      'http://localhost:8000/api/party-members/',
+      API_HOST + '/api/party-members/',
       {
         name: this.state.name,
         party: this.props.application_store.current_party.id
@@ -56,7 +57,7 @@ export default class JoinParty extends Component {
   joinParty(event) {
     this.setState({is_loading: true});
     axios.get(
-      'http://localhost:8000/api/parties/',
+      API_HOST + '/api/parties/',
       {
         params: {
           entry_code: this.state.entry_code
