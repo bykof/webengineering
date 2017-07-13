@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import Error from "./Error";
+import {API_HOST} from "../config";
 
 
 export default class CreateParty extends Component {
@@ -78,14 +79,14 @@ export default class CreateParty extends Component {
       event.preventDefault();
       //Erstelle Party
       axios.post(
-        'http://localhost:8000/api/parties/',
+        API_HOST + '/api/parties/',
         {}
       ).then(
         (party) => {
           this.props.application_store.current_party = party.data;
           //Erstelle Spieler
           axios.post(
-            'http://localhost:8000/api/party-members/', {
+            API_HOST + '/api/party-members/', {
               name: this.state.name,
               party: party.data.id
             }

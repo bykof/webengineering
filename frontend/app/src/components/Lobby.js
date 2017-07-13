@@ -4,10 +4,11 @@ import {Link} from 'react-router-dom';
 import axios from 'axios';
 import games from './games';
 import Error from "./Error";
+import {API_HOST} from "../config";
 
 
 const PARTY_PARTY_MEMBERS = (party_id) => {
-  return 'http://127.0.0.1:8000/api/parties/' + party_id + '/party_members/';
+  return API_HOST + '/api/parties/' + party_id + '/party_members/';
 };
 
 
@@ -82,7 +83,7 @@ export default class Lobby extends Component {
     
     for (let key in games) keys.push(key);
     axios.post(
-      'http://127.0.0.1:8000/api/parties/' + this.props.application_store.current_party.id + '/start/',
+      API_HOST + '/api/parties/' + this.props.application_store.current_party.id + '/start/',
       {
         game_indexes: keys
       }

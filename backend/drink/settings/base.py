@@ -12,7 +12,7 @@ SECRET_KEY = '2=wzna3t@gbla1(ima5uiz15&a#-cxe!gn$l#^2gjaey6z2xjr'
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 DJANGO_APPS = [
     'django.contrib.admin',

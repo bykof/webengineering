@@ -1,3 +1,4 @@
+import {WEBSOCKET_HOST} from "../config";
 const PARTY_MEMBER_JOINED = 'party_member_joined';
 const PARTY_MEMBER_LEAVED = 'party_member_leaved';
 const PARTY_STARTED = 'party_started';
@@ -10,7 +11,7 @@ export default class PartySocket {
     this.application_store = application_store;
     
     this.socket = new WebSocket(
-      'ws://127.0.0.1:8000/party/' +
+      WEBSOCKET_HOST +'/party/' +
       this.application_store.current_party.id +
       '/?party_member=' +
       JSON.stringify(this.application_store.current_member)
