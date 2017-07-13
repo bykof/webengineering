@@ -15,7 +15,7 @@ export default class BubblePop extends GameComponent {
       left: 0,
       size: 50,
       points: 0,
-      color: ['red', 'green', 'blue'],
+      color: ['red', 'green', 'blue', 'grey','#181c20'],
       colorIndex: 0,
       // Ist eine Liste aus Listen mit Spieler und Punkten
       members: [],
@@ -44,6 +44,7 @@ export default class BubblePop extends GameComponent {
 
   // Wird aufgerufen bei jeder Sekunde (15 Mal)
   onTick() {
+    console.log("Tick!");
   }
 
   //Gibt den Gewinner mit Punkte zurueck
@@ -88,7 +89,7 @@ export default class BubblePop extends GameComponent {
     let top = Math.round((Math.random() * screen.height * 0.70) - screen.height / 2);
     let left = Math.round((Math.random() * screen.width * 0.70) - screen.width / 2);
     let size = Math.round((Math.random() * 100) + 50);
-    let colorIndex = Math.round((Math.random() * 2));
+    let colorIndex = Math.round((Math.random() * 3));
     this.setState({top: top});
     this.setState({left: left});
     this.setState({size: size});
@@ -117,7 +118,10 @@ export default class BubblePop extends GameComponent {
   render() {
     return (
       <div>
-        {this.renderPoints()}
+        <span className="points" style={{
+          marginTop: -screen.height/1.5
+        }}>
+          {this.renderPoints()}</span>
 
         <span className="kreis" style={{
           top: this.state.top,
