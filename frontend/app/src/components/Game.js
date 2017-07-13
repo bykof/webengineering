@@ -139,7 +139,7 @@ export default class Game extends React.Component {
           () => {
             this.resetContent();
           },
-          2000
+          5000
         );
         return <div className="drink">DRINK!!!</div>;
       case BOMB:
